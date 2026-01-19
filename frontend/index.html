@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BatteryGuard Simple (PyBaMM)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>BatteryGuard (Simple PyBaMM Demo)</h1>
+    <p class="subtitle">Enter parameters → run simulation → view plot → export JSON. Runs are saved locally.</p>
+
+    <section class="card">
+      <h2>Inputs</h2>
+
+      <form id="runForm">
+        <div class="grid">
+          <label>
+            Model
+            <select id="model">
+              <option value="SPM">SPM</option>
+              <option value="THEVENIN">Thevenin</option>
+            </select>
+          </label>
+
+          <label>
+            C-rate
+            <input id="c_rate" type="number" step="0.1" min="0.1" value="1.0" />
+          </label>
+
+          <label>
+            Duration (hours)
+            <input id="t_hours" type="number" step="0.1" min="0.1" value="1.0" />
+          </label>
+
+          <label>
+            Initial SOC (0–1)
+            <input id="init_soc" type="number" step="0.05" min="0" max="1" value="1.0" />
+          </label>
+        </div>
+
+        <div class="row">
+          <button type="submit" id="runBtn">Run PyBaMM</button>
+          <button type="button" id="clearBtn" class="secondary">Clear History</button>
+        </div>
+
+        <p id="status" class="status"></p>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Output</h2>
+
+      <div id="outputEmpty" class="muted">
+        Run a simulation to see the plot and JSON summary.
+      </div>
+
+      <div id="outputArea" class="hidden">
+        <img id="plotImg" alt="Voltage vs Time Plot" />
+        <pre id="jsonPreview"></pre>
+
+        <div class="row">
+          <button id="downloadJsonBtn" type="button">Download JSON</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Run History (LocalStorage)</h2>
+      <div id="historyEmpty" class="muted">No runs saved yet.</div>
+      <ul id="historyList" class="history"></ul>
+    </section>
+
+    <footer class="footer">
+      Backend endpoint: <code id="apiBase"></code>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
